@@ -17,7 +17,7 @@ export default defineNuxtConfig({
       }
     ]
   ],
-  myModule: {
+  i18nData: {
     api: {
       url: "https://api.devnik.dev/storage",
       google: {

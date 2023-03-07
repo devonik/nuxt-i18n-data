@@ -21,9 +21,9 @@ Find and replace all on all files (CMD+SHIFT+F):
 ## Features
 
 <!-- Highlight some of the features your module provide here -->
-- ⛰ &nbsp;Foo
-- 🚠 &nbsp;Bar
-- 🌲 &nbsp;Baz
+- ⛰ &nbsp;Nuxt 3 module using the newest version of @nuxtjs/i18n
+- 🚠 &nbsp;Local json files for vue-i18n are not needed
+- 🌲 &nbsp;Typescript friendly
 
 ## Quick Setup
 
@@ -46,11 +46,54 @@ npm install --save-dev nuxt-i18n-data
 export default defineNuxtConfig({
   modules: [
     'nuxt-i18n-data'
-  ]
+  ],
+  i18nData: {
+    api: {
+      url: "https://...", /* This url will be taken for http calls. The initial GET at nuxt build and the api/i18n server handler. If google key exists this option will be ignored for GET calls. Post will still using this.*/
+      apiKey: "Bearer 1234" /* If this key exists the http calls will be made with 'Authorization' header. If google key exists this option will be ignored */
+      headers: { 'header1': "test", "header2" : "test1"} /* If this header exists this header wil be sent to http endpoints. If google key exists this option will be ignored */
+      google: { /* This key contains Google sheet credentials and will be used for http calls. If this key exists the api.url will be ignored. See #Google sheet config for more */
+        apiKey: process.env.I18N_DATA_GOOGLE_SHEET_API_KEY,
+        spreadsheetId: process.env.I18N_DATA_GOOGLE_SHEET_SPREADSHEET_ID
+      }
+    }
+  }
 })
 ```
 
 That's it! You can now use Nuxt i18n data module in your Nuxt app ✨
+
+## Google sheet config
+You can either using a self managed api with get endpoint to get all local messages or you can use google sheet to easily manage locale message and get this messages as json via [Google Sheet API](https://developers.google.com/sheets/api/reference/rest) 
+
+When you want to use the get from google sheet api you have to take some actions to enable this
+1. [Create](https://console.cloud.google.com/projectcreate) a google cloud project (if not already exists)
+2. Enable google sheet api 
+- Select your project -> APIs & Services -> Library -> Search for "Google Sheet API" -> Enable
+3. Create api key
+- Select your project -> APIs & Services -> Credentials -> Create credentials -> API key
+4. Add module config
+- Add the google config in your nuxt.config. I recommend to save this sensitive data in the local .env file
+```js
+export default defineNuxtConfig({
+  modules: [
+    'nuxt-i18n-data'
+  ],
+  i18nData: {
+    api: {
+      url: "https://...", /* This url will be taken for http calls. The initial GET at nuxt build and the api/i18n server handler. If google key exists this option will be ignored for GET calls. Post will still using this.*/
+      google: {
+        //This api key you created in #Google sheet config 3.
+        apiKey: process.env.I18N_DATA_GOOGLE_SHEET_API_KEY,
+        //This id you can grab out oft the google spreadsheet url https://docs.google.com/spreadsheets/d/...COPY THE ID FROM HERE.../
+        spreadsheetId: process.env.I18N_DATA_GOOGLE_SHEET_SPREADSHEET_ID
+      }
+    }
+  }
+})
+```
+
+Enable google sheet api and create api key
 
 ## Development
 

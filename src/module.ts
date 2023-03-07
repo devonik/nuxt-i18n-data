@@ -23,7 +23,7 @@ export interface I18nDataOptions {
 export default defineNuxtModule<I18nDataOptions>({
   meta: {
     name: 'nuxt-i18n-data',
-    configKey: 'myModule'
+    configKey: 'i18nData'
   },
   // Default configuration options of the Nuxt module
   defaults: {
@@ -68,7 +68,7 @@ export default defineNuxtModule<I18nDataOptions>({
 })
 
 async function fetchApi(config: I18nDataApiOptions){
-  if(!config) throw new Error('Missing module config for "myModule"')
+  if(!config) throw new Error('Missing module config for "i18nData"')
     if(!config.url && !config.google) throw new Error('Missing module config key "i18nData.url" or "i18nData.google"')
 
     if(config.google && !config.google.apiKey) throw new Error('Missing module config key "i18nData.google.apiKey"')
