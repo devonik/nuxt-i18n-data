@@ -22,7 +22,7 @@ export interface I18nDataOptions {
 
 export default defineNuxtModule<I18nDataOptions>({
   meta: {
-    name: 'my-module',
+    name: 'nuxt-i18n-data',
     configKey: 'myModule'
   },
   // Default configuration options of the Nuxt module
