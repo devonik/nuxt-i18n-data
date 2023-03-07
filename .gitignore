@@ -26,7 +26,7 @@ dist
 
 # Env
 .env
-./playground/.env
+playground/.env
 
 # Testing
 reports
