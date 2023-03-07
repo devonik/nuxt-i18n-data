@@ -22,6 +22,7 @@ Find and replace all on all files (CMD+SHIFT+F):
 
 <!-- Highlight some of the features your module provide here -->
 - ⛰ &nbsp;Nuxt 3 module using the newest version of @nuxtjs/i18n
+- ⛰ &nbsp;Nuxt plugin ($i18nData)
 - 🚠 &nbsp;Local json files for vue-i18n are not needed
 - 🌲 &nbsp;Typescript friendly
 
@@ -63,6 +64,24 @@ export default defineNuxtConfig({
 
 That's it! You can now use Nuxt i18n data module in your Nuxt app ✨
 
+## Plugin
+This module add a nuxt plugin and can be accessed via $i18nData within nuxt context
+### Methods
+Refresh all messages. See /playground for example 
+```
+$i18nData.refreshAllMessages()
+```
+Merge one message to vue-i18n instance. See src/runtime/components/I18nItem.vue for example 
+```
+$i18nData.addMessage(localeCode, key, value)
+```
+
+## Components
+TBD
+
+## Server routes
+TBD
+
 ## Google sheet config
 You can either using a self managed api with get endpoint to get all local messages or you can use google sheet to easily manage locale message and get this messages as json via [Google Sheet API](https://developers.google.com/sheets/api/reference/rest) 
 
@@ -92,8 +111,6 @@ export default defineNuxtConfig({
   }
 })
 ```
-
-Enable google sheet api and create api key
 
 ## Development
 
