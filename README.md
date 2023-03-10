@@ -81,6 +81,7 @@ TBD
 
 ## Server routes
 TBD
+You have to set runtime config (same format as module config) to use this
 
 ## Google sheet config
 You can either using a self managed api with get endpoint to get all local messages or you can use google sheet to easily manage locale message and get this messages as json via [Google Sheet API](https://developers.google.com/sheets/api/reference/rest) 

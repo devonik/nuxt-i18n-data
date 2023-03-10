@@ -1,26 +1,10 @@
 import { defineNuxtModule, addPlugin, createResolver, addServerHandler, addComponent } from '@nuxt/kit'
 import { ofetch } from 'ofetch'
 import { useHelper } from './runtime/helper'
-import { i18nDataDto } from './runtime/types'
+import { i18nDataDto, I18nDataConfig, I18nDataApiConfig } from './runtime/types'
 const helper = useHelper()
 
-// Module options TypeScript inteface definition
-
-interface I18nDataGoogleOptions{
-  apiKey?: string,
-  spreadsheetId?: string
-}
-interface I18nDataApiOptions {
-  url?: string,
-  apiKey?: string,
-  headers?: any,
-  google?: I18nDataGoogleOptions
-}
-export interface I18nDataOptions {
-  api: I18nDataApiOptions
-}
-
-export default defineNuxtModule<I18nDataOptions>({
+export default defineNuxtModule<I18nDataConfig>({
   meta: {
     name: 'nuxt-i18n-data',
     configKey: 'i18nData'
@@ -31,7 +15,7 @@ export default defineNuxtModule<I18nDataOptions>({
 
     }
   },
-  setup(options, nuxt) {
+  setup(config, nuxt) {
     const resolver = createResolver(import.meta.url)
 
     // Do not add the extension since the `.ts` will be transpiled to `.mjs` after `npm run prepack`
@@ -61,24 +45,16 @@ export default defineNuxtModule<I18nDataOptions>({
     
     //Extend vue i18n messages initial
     nuxt.hook('i18n:extend-messages', async (additionalMessages, localeCodes) => {
-      const messages = await fetchApi(options.api)
+      const messages = await fetchApi(config.api)
       additionalMessages.push(messages)
     })
   }
 })
 
-async function fetchApi(config: I18nDataApiOptions){
-  if(!config) throw new Error('Missing module config for "i18nData"')
-    if(!config.url && !config.google) throw new Error('Missing module config key "i18nData.url" or "i18nData.google"')
-
-    if(config.google && !config.google.apiKey) throw new Error('Missing module config key "i18nData.google.apiKey"')
-
-    let isGoogleConfig = false
-    let url = config.url
-    if(config.google) {
-        isGoogleConfig = true
-        url = `https://sheets.googleapis.com/v4/spreadsheets/${config.google.spreadsheetId}/values:batchGet?ranges=A1:AC1&ranges=A2:AC1000&key=${config.google.apiKey}`
-    }
+async function fetchApi(config: I18nDataApiConfig){
+  const googleConfig = helper.getGoogleRuntimeConfig(config)
+    if(!config) throw new Error('You must add runtime config "i18nData.api"')
+    else if(!config.url && !googleConfig) throw new Error('You must add runtime config i18nData.api.url or i18nData.api.google')
 
     let headers = config.headers || null
     if(!headers && config.apiKey) {
@@ -88,13 +64,14 @@ async function fetchApi(config: I18nDataApiOptions){
     }
         
     try{
+      const url = googleConfig ? googleConfig.getUrl : config.url
         let apiResponse: any = null
         if(headers) apiResponse = await ofetch(url, {
             headers
         })
         else apiResponse = await ofetch(url)
 
-        if(isGoogleConfig){
+        if(googleConfig){
             const spreadsheetHeaders = apiResponse.valueRanges[0]
             const spreadsheetValues = apiResponse.valueRanges[1]
             if(!spreadsheetHeaders) throw new Error("Could not read response.valueRanges[0] from fetch call in module nuxt-i18n-data /get")
@@ -114,12 +91,11 @@ async function fetchApi(config: I18nDataApiOptions){
                     })
                 })
             })
-
             return helper.groupByLocalCode(messages)
         }
 
         return helper.groupByLocalCode(apiResponse)
     }catch (error: any){
-        throw new Error("Could not read response from fetch call in module nuxt-i18n-data /get: " + error)
+        throw new Error("Could not read response from fetch call in module nuxt-i18n-data fetchApi: " + error)
     }
 }

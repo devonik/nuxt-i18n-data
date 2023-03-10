@@ -20,17 +20,22 @@ export default defineNuxtPlugin((nuxtApp) => {
         },
         async addMessage(localeCode: string, key: string, value: string){
           const helper = useHelper()
-          const { data: messages } = await useFetch('/api/i18n', { 
-            method: "POST", 
-            body: [
-              {
-                key,
-                value,
-                localeCode
-              }
-            ]
-          })
-          nuxtApp.$i18n.mergeLocaleMessage(localeCode, helper.unflattenObject({ [key]: value }))
+          try{
+            const { data: messages } = await useFetch('/api/i18n', { 
+              method: "POST", 
+              body: [
+                {
+                  key,
+                  value,
+                  localeCode
+                }
+              ]
+            })
+            nuxtApp.$i18n.mergeLocaleMessage(localeCode, helper.unflattenObject({ [key]: value }))
+          }catch(error){
+            createError({ statusMessage: 'Could not post /api/i18n: ' + error, statusCode: 500})
+          }
+          
         },
       }
     }

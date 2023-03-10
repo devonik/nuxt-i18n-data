@@ -2,20 +2,13 @@ import { useHelper } from '../../helper'
 import { i18nDataDto } from '../../types'
 const helper = useHelper()
 const config = useRuntimeConfig()
+
 export default defineEventHandler(async (event: any) => {
-    if(!config.i18nData) throw new Error('Missing runtime config key "i18nData"')
-    if(!config.i18nData.url && !config.i18nData.google) throw new Error('Missing runtime config key "i18nData.url" or "i18nData.google"')
+    if(!config.i18nData) throw new Error('You must add runtime config "i18nData"')
+    else if(!config.i18nData.api) throw new Error('You must add runtime config "i18nData.api"')
 
-    if(config.i18nData.google && !config.i18nData.google.apiKey) throw new Error('Missing runtime config key "i18nData.google.apiKey"')
-
-    const query = await getQuery(event)
-    let isGoogleConfig = config.i18nData.google
-    let url = config.i18nData.url
-
-    if(config.i18nData.google) {
-        isGoogleConfig = true
-        url = `https://sheets.googleapis.com/v4/spreadsheets/${config.i18nData.google.spreadsheetId}/values:batchGet?ranges=A1:AC1&ranges=A2:AC1000&key=${config.i18nData.google.apiKey}`
-    }
+    const googleConfig = helper.getGoogleRuntimeConfig(config.i18nData.api)
+    if(!config.i18nData.api.url && !googleConfig) throw new Error('You must add runtime config i18nData.api.url or i18nData.api.google')
 
     let headers = config.i18nData.headers || null
     if(!headers && config.i18nData.apiKey) {
@@ -24,14 +17,17 @@ export default defineEventHandler(async (event: any) => {
         }
     }
         
+    const query = await getQuery(event)
+
     try{
+        const url = googleConfig ? googleConfig.getUrl : config.i18nData.url
         let apiResponse: any = null
         if(headers) apiResponse = await $fetch(url, {
             headers
         })
         else apiResponse = await $fetch(url)
 
-        if(isGoogleConfig){
+        if(googleConfig){
             const spreadsheetHeaders = apiResponse.valueRanges[0]
             const spreadsheetValues = apiResponse.valueRanges[1]
             if(!spreadsheetHeaders) throw new Error("Could not read response.valueRanges[0] from fetch call in module nuxt-i18n-data /get")

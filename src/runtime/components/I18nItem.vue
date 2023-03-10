@@ -26,7 +26,7 @@
     import { reactive } from "vue";
     import { i18nDataDto } from '../types'
     import { defineEmits } from 'vue' 
-    import { useNuxtApp } from '#imports'  
+    import { useNuxtApp, createError } from '#imports'  
     const nuxtApp = useNuxtApp()
 
     const emit = defineEmits<{
@@ -47,8 +47,9 @@
     })
     
     async function save() {
-        if(model.localeCode && model.key && model.value)
-          nuxtApp.$i18nData.addMessage(model.localeCode, model.key, model.value)
+        if(model.localeCode && model.key && model.value){
+            nuxtApp.$i18nData.addMessage(model.localeCode, model.key, model.value)
+        }
 
         emit('created', model)
 
