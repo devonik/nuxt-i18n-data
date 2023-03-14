@@ -65,36 +65,37 @@ async function fetchApi(config: I18nDataApiConfig){
         
     try{
       const url = googleConfig ? googleConfig.getUrl : config.url
-        let apiResponse: any = null
-        if(headers) apiResponse = await ofetch(url, {
-            headers
-        })
-        else apiResponse = await ofetch(url)
+      if(!url) throw new Error("Could not read build url by nuxt-i18n-data module config. Google sheet api url or any other get url must be filled")
+      let apiResponse: any = null
+      if(headers) apiResponse = await ofetch(url, {
+          headers
+      })
+      else apiResponse = await ofetch(url)
 
-        if(googleConfig){
-            const spreadsheetHeaders = apiResponse.valueRanges[0]
-            const spreadsheetValues = apiResponse.valueRanges[1]
-            if(!spreadsheetHeaders) throw new Error("Could not read response.valueRanges[0] from fetch call in module nuxt-i18n-data /get")
-            else if(!spreadsheetValues) throw new Error("Could not read response.valueRanges[1] from fetch call in module nuxt-i18n-data /get")
-    
-            const headerValues = spreadsheetHeaders.values[0]
-            const messages: Array<i18nDataDto> = []
-            headerValues.forEach((header: string, headerIndex: number) => {
-                if(headerIndex === 0) return
-                
-                spreadsheetValues.values.forEach(values => {
-                    if(!values[0] || !values[headerIndex]) return
-                    messages.push({
-                        key: values[0],
-                        value: values[headerIndex],
-                        localeCode: header.toLowerCase()
-                    })
-                })
-            })
-            return helper.groupByLocalCode(messages)
-        }
+      if(googleConfig){
+          const spreadsheetHeaders = apiResponse.valueRanges[0]
+          const spreadsheetValues = apiResponse.valueRanges[1]
+          if(!spreadsheetHeaders) throw new Error("Could not read response.valueRanges[0] from fetch call in module nuxt-i18n-data /get")
+          else if(!spreadsheetValues) throw new Error("Could not read response.valueRanges[1] from fetch call in module nuxt-i18n-data /get")
+  
+          const headerValues = spreadsheetHeaders.values[0]
+          const messages: Array<i18nDataDto> = []
+          headerValues.forEach((header: string, headerIndex: number) => {
+              if(headerIndex === 0) return
+              
+              spreadsheetValues.values.forEach((values: Array<string>) => {
+                  if(!values[0] || !values[headerIndex]) return
+                  messages.push({
+                      key: values[0],
+                      value: values[headerIndex],
+                      localeCode: header.toLowerCase()
+                  })
+              })
+          })
+          return helper.groupByLocalCode(messages)
+      }
 
-        return helper.groupByLocalCode(apiResponse)
+      return helper.groupByLocalCode(apiResponse)
     }catch (error: any){
         throw new Error("Could not read response from fetch call in module nuxt-i18n-data fetchApi: " + error)
     }

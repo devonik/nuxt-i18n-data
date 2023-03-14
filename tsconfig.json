@@ -2,7 +2,6 @@
   "extends": "./playground/.nuxt/tsconfig.json",
   "compilerOptions": {
     "types": [
-      "@nuxt/types",
       "@nuxtjs/i18n",
     ]
   }
