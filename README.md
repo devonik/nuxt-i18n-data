@@ -77,11 +77,42 @@ $i18nData.addMessage(localeCode, key, value)
 ```
 
 ## Components
-TBD
+This module provides simple Vue commponents to GET all loaded messages, POST them and DELETE. See /playground for more
 
 ## Server routes
-TBD
-You have to set runtime config (same format as module config) to use this
+> You have to set runtime config (same format as module config) to use this
+
+### GET - /api/i18n/
+1. Google sheet config (runtimeConfig: i18nData.google). Example spreadsheet https://docs.google.com/spreadsheets/d/1Th8vT5gAVqmkXyoGtxOhgtPYL-6QwDfH8viZyuKphwI/edit#gid=0
+2. Custom API (runtimeConfig: i18nData.api.url)
+Return from custom api must be
+```json
+[
+    {
+        "key": "layout.menuSecondary.test1",
+        "value": "testChild",
+        "localeCode": "de"
+    }
+]
+```
+
+### POST - /api/i18n/
+> POST / update a message is currently only possible with custom API. For google post support the project have to use the google sdk cause of oauth needed
+1. Custom API (runtimeConfig: i18nData.api.url)
+The DTO post from client have to be
+```json
+[
+    {
+        "key": "layout.menuSecondary.test1",
+        "value": "testChildUpdate",
+        "localeCode": "de"
+    }
+]
+```
+
+### DELETE - /api/i18n/
+> DELETE a message is currently only possible with custom API. For google post support the project have to use the google sdk cause of oauth needed
+!!!Not maintained yet!!!
 
 ## Google sheet config
 You can either using a self managed api with get endpoint to get all local messages or you can use google sheet to easily manage locale message and get this messages as json via [Google Sheet API](https://developers.google.com/sheets/api/reference/rest) 
