@@ -6,6 +6,7 @@ import {
   defineNuxtModule,
 } from '@nuxt/kit'
 import { ofetch } from 'ofetch'
+import { defu } from 'defu'
 import { useHelper } from './runtime/util/helper'
 import type {
   I18nDataApiConfig,
@@ -61,6 +62,9 @@ export default defineNuxtModule<I18nDataConfig>({
         additionalMessages.push(messages)
       },
     )
+
+    // Assign module options to run time cause we need it in server handler
+    nuxt.options.runtimeConfig.i18nData = defu(nuxt.options.runtimeConfig.i18nData, config)
   },
 })
 
