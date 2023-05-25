@@ -1,5 +1,3 @@
-import type { I18nDataApiConfig } from '../types'
-
 export function useHelper() {
   return {
     groupBy(xs, key) {
@@ -35,7 +33,7 @@ export function useHelper() {
             .filter(item => item.localeCode === code)
             .reduce(
               (acc: { [key: string]: string }, curr) => (
-                (acc[curr.key] = curr.value), acc
+                ((acc[curr.key] = curr.value), acc)
               ),
               {},
             ),
@@ -43,20 +41,5 @@ export function useHelper() {
       })
       return obj
     },
-    getGoogleRuntimeConfig(config: I18nDataApiConfig) {
-      // Required fields
-      if (
-        !config.google
-        || !config.google.apiKey
-        || !config.google.spreadsheetId
-      )
-        return null
-      return {
-        ...config.google,
-        getUrl: `https://sheets.googleapis.com/v4/spreadsheets/${config.google.spreadsheetId}/values:batchGet?ranges=A1:AC1&ranges=A2:AC1000&key=${config.google.apiKey}`,
-        postUrl: `https://sheets.googleapis.com/v4/spreadsheets/${config.google.spreadsheetId}/values/A1:AC1:append?valueInputOption=RAW&key=${config.google.apiKey}`,
-      }
-    },
-    getFetchInstance() {},
   }
 }

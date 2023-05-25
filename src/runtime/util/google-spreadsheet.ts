@@ -2,7 +2,6 @@ import { GoogleSpreadsheet } from 'google-spreadsheet'
 import type { I18nDataGoogleConfig } from '../types'
 
 export async function getI18nData(configuration: I18nDataGoogleConfig) {
-  console.log('configuration', configuration)
   if (
     !configuration.providerKey
     || !configuration.credentials
@@ -50,7 +49,6 @@ export async function getI18nData(configuration: I18nDataGoogleConfig) {
       }
     }
   }
-  console.log(`Extract: ${rows.length} rows`, messages)
 
   return messages
 }
