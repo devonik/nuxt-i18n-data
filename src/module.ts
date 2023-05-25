@@ -1,7 +1,6 @@
 import {
   addComponent,
   addPlugin,
-  addServerHandler,
   createResolver,
   defineNuxtModule,
 } from '@nuxt/kit'
@@ -31,27 +30,27 @@ export default defineNuxtModule<I18nDataConfig>({
 
     // Do not add the extension since the `.ts` will be transpiled to `.mjs` after `npm run prepack`
     addPlugin(resolver.resolve('./runtime/plugin'))
-    addServerHandler({
+
+    // TODO temporary disabled because it cannot be resolved. bug is known here https://github.com/nuxt/nuxt/issues/18909
+    /* addServerHandler({
       route: '/api/i18n',
-      method: 'get',
       handler: resolver.resolve('./runtime/server/api/get.ts'),
     })
     addServerHandler({
       route: '/api/i18n',
-      method: 'post',
       handler: resolver.resolve('./runtime/server/api/post.ts'),
     })
     addServerHandler({
       route: '/api/i18n/delete',
       handler: resolver.resolve('./runtime/server/api/delete.ts'),
-    })
+    }) */
     addComponent({
       name: 'I18nItem',
-      filePath: resolver.resolve('./runtime/components/I18nItem'),
+      filePath: resolver.resolve('./runtime/components/I18nItem.vue'),
     })
     addComponent({
       name: 'I18nList',
-      filePath: resolver.resolve('./runtime/components/I18nList'),
+      filePath: resolver.resolve('./runtime/components/I18nList.vue'),
     })
 
     // Extend vue i18n messages initial
