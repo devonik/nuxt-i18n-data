@@ -1,3 +1,26 @@
+<script lang="ts" setup>
+import { useHelper } from '../util/helper'
+import { useFetch } from '#app'
+
+const helper = useHelper()
+const { data: rawData }: any = await useFetch('/api/i18n?raw=true')
+const i18nData = helper.groupBy(rawData.value, 'localeCode')
+
+function deleteAll() {
+  useFetch('/api/i18n/delete', { method: 'post' })
+}
+
+function removeItemFromList(item) {
+  i18nData.value[item.localeCode].splice(0, 1)
+}
+
+function addItemToList(newItem) {
+  if (!i18nData.value[newItem.localeCode])
+    i18nData.value[newItem.localeCode] = []
+  i18nData.value[newItem.localeCode].push(newItem)
+}
+</script>
+
 <template>
   <div>
     Neu:
@@ -10,28 +33,8 @@
         </li>
       </ul>
     </div>
-    <button @click="deleteAll()">Delete all</button>
+    <button @click="deleteAll()">
+      Delete all
+    </button>
   </div>
 </template>
-<script lang="ts" setup>
-import { useFetch } from "#app";
-import { useHelper } from "../util/helper";
-const helper = useHelper();
-const { data: rawData }: any = await useFetch(`/api/i18n?raw=true`);
-console.log("rawData", rawData.value);
-const i18nData = helper.groupBy(rawData.value, "localeCode");
-
-function deleteAll() {
-  useFetch("/api/i18n/delete", { method: "post" });
-}
-
-function removeItemFromList(item) {
-  i18nData.value[item.localeCode].splice(0, 1);
-}
-
-function addItemToList(newItem) {
-  if (!i18nData.value[newItem.localeCode])
-    i18nData.value[newItem.localeCode] = [];
-  i18nData.value[newItem.localeCode].push(newItem);
-}
-</script>

@@ -1,29 +1,29 @@
-import { defineNuxtPlugin } from "#app";
-import { useFetch } from "#imports";
-import { useHelper } from "./util/helper";
+import { useHelper } from './util/helper'
+import { defineNuxtPlugin } from '#app'
+import { useFetch } from '#imports'
 
 export default defineNuxtPlugin((nuxtApp) => {
   return {
     provide: {
       i18nData: {
         async refreshAllMessages() {
-          const helper = useHelper();
+          const helper = useHelper()
 
-          const { data: messages } = await useFetch("/api/i18n");
+          const { data: messages } = await useFetch('/api/i18n')
 
           Object.keys(messages.value).forEach((localeCode) => {
             nuxtApp.$i18n.setLocaleMessage(
               localeCode,
-              messages.value[localeCode]
-            );
-          });
+              messages.value[localeCode],
+            )
+          })
         },
         refreshMessageByLocalCode(localeCode: string) {},
         async addMessage(localeCode: string, key: string, value: string) {
-          const helper = useHelper();
+          const helper = useHelper()
           try {
-            const { data: messages } = await useFetch("/api/i18n", {
-              method: "POST",
+            const { data: messages } = await useFetch('/api/i18n', {
+              method: 'POST',
               body: [
                 {
                   key,
@@ -31,19 +31,20 @@ export default defineNuxtPlugin((nuxtApp) => {
                   localeCode,
                 },
               ],
-            });
+            })
             nuxtApp.$i18n.mergeLocaleMessage(
               localeCode,
-              helper.unflattenObject({ [key]: value })
-            );
-          } catch (error) {
+              helper.unflattenObject({ [key]: value }),
+            )
+          }
+          catch (error) {
             createError({
-              statusMessage: "Could not post /api/i18n: " + error,
+              statusMessage: `Could not post /api/i18n: ${error}`,
               statusCode: 500,
-            });
+            })
           }
         },
       },
     },
-  };
-});
+  }
+})

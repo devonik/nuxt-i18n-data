@@ -1,3 +1,9 @@
+<script setup>
+import { useI18n } from '#imports'
+
+const i18n = useI18n()
+</script>
+
 <template>
   <div>
     Nuxt module playground!
@@ -9,8 +15,3 @@
     </button>
   </div>
 </template>
-
-<script setup>
-import { useI18n, useLocalePath } from '#imports' 
-   const i18n = useI18n()
-</script>

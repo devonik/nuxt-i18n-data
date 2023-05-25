@@ -1,14 +1,28 @@
 {
   "name": "nuxt-i18n-data",
-  "version": "0.0.2",
-  "description": "This nuxt 3 module can be used to load locale messages in the vue-i18n instance. The api configured in the config will be called initial after nuxt build and can be called again via plugin that is provided by this module - access via $i18nData",
-  "license": "MIT",
   "type": "module",
+  "version": "0.1.2",
+  "description": "This nuxt 3 module can be used to load locale messages in the vue-i18n instance. The api configured in the config will be called initial after nuxt build and can be called again via plugin that is provided by this module - access via $i18nData",
+  "author": {
+    "name": "devnik",
+    "email": "niklas.grieger@devnik.dev",
+    "url": "https://devnik.dev/"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/devonik/nuxt-i18n-data#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/devonik/nuxt-i18n-data.git"
+  },
+  "bugs": {
+    "url": "https://github.com/devonik/nuxt-i18n-data/issues",
+    "email": "niklas.grieger@devnik.dev"
+  },
   "exports": {
     ".": {
       "types": "./dist/types.d.ts",
-      "import": "./dist/module.mjs",
-      "require": "./dist/module.cjs"
+      "require": "./dist/module.cjs",
+      "import": "./dist/module.mjs"
     }
   },
   "main": "./dist/module.cjs",
@@ -16,20 +30,6 @@
   "files": [
     "dist"
   ],
-  "homepage": "https://github.com/devonik/nuxt-i18n-data#readme",
-  "bugs": {
-    "url": "https://github.com/devonik/nuxt-i18n-data/issues",
-    "email": "niklas.grieger@devnik.dev"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/devonik/nuxt-i18n-data.git"
-  },
-  "author": {
-    "name": "devnik",
-    "email": "niklas.grieger@devnik.dev",
-    "url": "https://devnik.dev/"
-  },
   "scripts": {
     "prepack": "nuxt-module-build",
     "dev": "nuxi dev playground",
@@ -37,6 +37,7 @@
     "dev:prepare": "nuxt-module-build --stub && nuxi prepare playground",
     "release": "npm run lint && npm run test && npm run prepack && changelogen --release && npm publish && git push --follow-tags",
     "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
     "test": "vitest run",
     "test:watch": "vitest watch"
   },
@@ -44,15 +45,24 @@
     "@nuxt/kit": "^3.5.1",
     "@nuxtjs/i18n": "next",
     "changelogen": "^0.5.3",
-    "eslint": "^8.41.0",
     "google-spreadsheet": "^3.3.0",
     "nuxt": "^3.5.1",
     "ofetch": "^1.0.1",
     "vitest": "^0.31.1"
   },
   "devDependencies": {
+    "@antfu/eslint-config": "^0.39.3",
     "@nuxt/module-builder": "^0.3.1",
     "@nuxt/schema": "^3.5.1",
-    "@nuxt/test-utils": "^3.5.1"
+    "@nuxt/test-utils": "^3.5.1",
+    "eslint": "^8.41.0",
+    "lint-staged": "^13.2.2",
+    "simple-git-hooks": "^2.8.1"
+  },
+  "simple-git-hooks": {
+    "pre-commit": "pnpm lint-staged"
+  },
+  "lint-staged": {
+    "*": "eslint --fix"
   }
 }
