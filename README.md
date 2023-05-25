@@ -54,8 +54,17 @@ export default defineNuxtConfig({
       apiKey: 'Bearer 1234', /* If this key exists the http calls will be made with 'Authorization' header. If google key exists this option will be ignored */
       headers: { header1: 'test', header2: 'test1' }, /* If this header exists this header wil be sent to http endpoints. If google key exists this option will be ignored */
       google: { /* This key contains Google sheet credentials and will be used for http calls. If this key exists the api.url will be ignored. See #Google sheet config for more */
-        apiKey: process.env.I18N_DATA_GOOGLE_SHEET_API_KEY,
-        spreadsheetId: process.env.I18N_DATA_GOOGLE_SHEET_SPREADSHEET_ID
+        providerKey: process.env.I18N_DATA_GOOGLE_SHEET_PROVIDER_KEY,
+        spreadsheetId: process.env.I18N_DATA_GOOGLE_SHEET_SPREADSHEET_ID,
+        credentials: { // You can use this to authentificate with oauth service account
+          email: process.env.I18N_DATA_GOOGLE_CLIENT_EMAIL,
+          privateKey: process.env.I18N_DATA_GOOGLE_CLIENT_PRIVATE_KEY_BASE_64 // Or directly use a private key value instead of Buffer
+            ? Buffer.from(
+              process.env.I18N_DATA_GOOGLE_CLIENT_PRIVATE_KEY_BASE_64,
+              'base64',
+            ).toString('ascii')
+            : undefined,
+        },
       }
     }
   }
