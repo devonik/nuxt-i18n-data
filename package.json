@@ -45,6 +45,7 @@
     "@nuxt/kit": "^3.5.1",
     "@nuxtjs/i18n": "next",
     "changelogen": "^0.5.3",
+    "defu": "^6.1.2",
     "google-spreadsheet": "^3.3.0",
     "nuxt": "^3.5.1",
     "ofetch": "^1.0.1",
