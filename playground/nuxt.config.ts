@@ -4,29 +4,47 @@ export default defineNuxtConfig({
       api: {
         url: "https://api.devnik.dev/storage",
         google: {
-          apiKey: process.env.I18N_DATA_GOOGLE_SHEET_API_KEY,
-          spreadsheetId: process.env.I18N_DATA_GOOGLE_SHEET_SPREADSHEET_ID
-        }
-      }
-      
+          providerKey: process.env.I18N_DATA_GOOGLE_SHEET_PROVIDER_KEY,
+          spreadsheetId: process.env.I18N_DATA_GOOGLE_SHEET_SPREADSHEET_ID,
+          credentials: {
+            email: process.env.I18N_DATA_GOOGLE_CLIENT_EMAIL,
+            privateKey: process.env.I18N_DATA_GOOGLE_CLIENT_PRIVATE_KEY_BASE_64
+              ? Buffer.from(
+                  process.env.I18N_DATA_GOOGLE_CLIENT_PRIVATE_KEY_BASE_64,
+                  "base64"
+                ).toString("ascii")
+              : null,
+          },
+        },
+      },
     },
   },
-  modules: ['../src/module',
+  modules: [
+    "../src/module",
     [
-      '@nuxtjs/i18n',
+      "@nuxtjs/i18n",
       {
-        strategy: 'prefix_except_default',
-        defaultLocale: 'de'
-      }
-    ]
+        strategy: "prefix_except_default",
+        defaultLocale: "de",
+      },
+    ],
   ],
   i18nData: {
     api: {
       url: "https://api.devnik.dev/storage",
       google: {
-        apiKey: process.env.I18N_DATA_GOOGLE_SHEET_API_KEY,
-        spreadsheetId: process.env.I18N_DATA_GOOGLE_SHEET_SPREADSHEET_ID
-      }
-    }
-  }
-})
+        providerKey: process.env.I18N_DATA_GOOGLE_SHEET_PROVIDER_KEY,
+        spreadsheetId: process.env.I18N_DATA_GOOGLE_SHEET_SPREADSHEET_ID,
+        credentials: {
+          email: process.env.I18N_DATA_GOOGLE_CLIENT_EMAIL,
+          privateKey: process.env.I18N_DATA_GOOGLE_CLIENT_PRIVATE_KEY_BASE_64
+            ? Buffer.from(
+                process.env.I18N_DATA_GOOGLE_CLIENT_PRIVATE_KEY_BASE_64,
+                "base64"
+              ).toString("ascii")
+            : null,
+        },
+      },
+    },
+  },
+});
