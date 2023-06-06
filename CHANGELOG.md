@@ -1,6 +1,19 @@
 # Changelog
 
 
+## v0.1.11
+
+[compare changes](https://github.com/devonik/nuxt-i18n-data/compare/v0.1.10...v0.1.11)
+
+
+### 🩹 Fixes
+
+  - Try to make server handler running, call composables within handler function ([3dc1695](https://github.com/devonik/nuxt-i18n-data/commit/3dc1695))
+
+### ❤️  Contributors
+
+- Niklas Grieger <niklas.grieger@devnik.dev>
+
 ## v0.1.10
 
 [compare changes](https://github.com/devonik/nuxt-i18n-data/compare/v0.1.9...v0.1.10)
