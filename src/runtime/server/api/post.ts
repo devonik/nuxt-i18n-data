@@ -1,8 +1,9 @@
 import { useHelper } from '../../util/helper'
 
-const helper = useHelper()
-const config = useRuntimeConfig()
 export default defineEventHandler(async (event: any) => {
+  const helper = useHelper()
+  const config = useRuntimeConfig()
+
   if (!config.i18nData)
     throw new Error('You must add runtime config "i18nData"')
   else if (!config.i18nData.api)

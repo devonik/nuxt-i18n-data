@@ -41,7 +41,6 @@ export async function getI18nData(configuration: I18nDataGoogleConfig) {
   for (const [index, row] of Object.entries(rows)) {
     for (const header of Object.keys(row)) {
       if (!header.startsWith('_') && header !== 'KEYS' && row[header]) {
-        console.log('wnt to push message value', row[header])
         messages.push({
           key: row.KEYS,
           value: row[header].replace('@', '{\'@\'}'),
@@ -50,7 +49,6 @@ export async function getI18nData(configuration: I18nDataGoogleConfig) {
       }
     }
   }
-  console.log('generated messages', messages)
 
   return messages
 }

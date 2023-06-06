@@ -2,10 +2,9 @@ import { useHelper } from '../../util/helper'
 import type { I18nDataApiConfig } from '../../types'
 import { getI18nData } from '../../util/google-spreadsheet'
 
-const helper = useHelper()
-const config = useRuntimeConfig()
-
 export default defineEventHandler(async (event: any) => {
+  const helper = useHelper()
+  const config = useRuntimeConfig()
   const moduleConfig: I18nDataApiConfig = config.i18nData.api
   if (!moduleConfig.url && !moduleConfig.google) {
     throw new Error(
