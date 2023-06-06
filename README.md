@@ -44,6 +44,8 @@ npm install --save-dev nuxt-i18n-data
 2. Add `nuxt-i18n-data` to the `modules` section of `nuxt.config.ts`
 
 ```js
+import { Buffer } from 'node:buffer'
+
 export default defineNuxtConfig({
   modules: [
     'nuxt-i18n-data'
