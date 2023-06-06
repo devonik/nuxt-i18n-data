@@ -1,6 +1,19 @@
 # Changelog
 
 
+## v0.1.10
+
+[compare changes](https://github.com/devonik/nuxt-i18n-data/compare/v0.1.9...v0.1.10)
+
+
+### 🩹 Fixes
+
+  - Replace i18n messages @ special character, add server handler /get /delete ([0b01cb3](https://github.com/devonik/nuxt-i18n-data/commit/0b01cb3))
+
+### ❤️  Contributors
+
+- Niklas Grieger <niklas.grieger@devnik.dev>
+
 ## v0.1.9
 
 [compare changes](https://github.com/devonik/nuxt-i18n-data/compare/v0.1.8...v0.1.9)
