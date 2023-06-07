@@ -36,7 +36,6 @@ export default defineNuxtModule<I18nDataConfig>({
     addServerHandler({
       route: '/api/i18n',
       handler: resolver.resolve('./runtime/server/api/get'),
-      lazy: true,
     })
     /* addServerHandler({
       route: '/api/i18n',
@@ -44,8 +43,7 @@ export default defineNuxtModule<I18nDataConfig>({
     }) */
     /* addServerHandler({
       route: '/api/i18n/delete',
-      handler: resolver.resolve('./runtime/server/api/delete'),
-      lazy: true
+      handler: resolver.resolve('./runtime/server/api/delete')
     }) */
     addComponent({
       name: 'I18nItem',
@@ -56,12 +54,21 @@ export default defineNuxtModule<I18nDataConfig>({
       filePath: resolver.resolve('./runtime/components/I18nList'),
     })
 
-    nuxt.hook('i18n:registerModule', (register: any) => {
+    //TODO i18n:extend-messages seems deprecated soon but registerModule does not work yet
+    nuxt.hook(
+      'i18n:extend-messages',
+      async (additionalMessages, localeCodes) => {
+        const messages = await fetchApi(config.api)
+        additionalMessages.push(messages)
+      },
+    )
+
+    /*nuxt.hook('i18n:registerModule', (register: any) => {
       register({
         // langDir path needs to be resolved
         langDir: resolver.resolve('./runtime/lang'),
         experimental: {
-          jsTsFormatResource: true
+          jsTsFormatResource: true,
         },
         locales: [
           {
@@ -72,9 +79,9 @@ export default defineNuxtModule<I18nDataConfig>({
             code: 'en',
             file: 'general.ts',
           },
-        ]
+        ],
       })
-    })
+    })*/
 
     // Assign module options to run time cause we need it in server handler
     nuxt.options.runtimeConfig.i18nData = defu(nuxt.options.runtimeConfig.i18nData, config)

@@ -1,10 +1,12 @@
-
+import type { H3Event } from 'h3'
+import { getQuery } from 'h3'
+import { useRuntimeConfig } from '#imports'
 import { useHelper } from '../../util/helper'
-import  {H3Event, EventHandlerResponse } from 'h3'
 import type { I18nDataApiConfig, I18nDataRaw } from '../../types'
 import { getI18nData } from '../../util/google-spreadsheet'
+import { useRuntimeConfig } from '#imports'
 
-export default async function(event: H3Event | undefined): Promise<Array<I18nDataRaw> | Array<Record<string, I18nDataRaw>>>{
+export default async function (event: H3Event | undefined): Promise<Array<I18nDataRaw> | Array<Record<string, I18nDataRaw>>> {
   const helper = useHelper()
   const config = useRuntimeConfig()
   const moduleConfig: I18nDataApiConfig = config.i18nData.api
