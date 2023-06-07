@@ -36,17 +36,17 @@ export default defineNuxtModule<I18nDataConfig>({
     addServerHandler({
       route: '/api/i18n',
       handler: resolver.resolve('./runtime/server/api/get'),
-      lazy: true
+      lazy: true,
     })
     /* addServerHandler({
       route: '/api/i18n',
       handler: resolver.resolve('./runtime/server/api/post'),
     }) */
-    /*addServerHandler({
+    /* addServerHandler({
       route: '/api/i18n/delete',
       handler: resolver.resolve('./runtime/server/api/delete'),
       lazy: true
-    })*/
+    }) */
     addComponent({
       name: 'I18nItem',
       filePath: resolver.resolve('./runtime/components/I18nItem'),
