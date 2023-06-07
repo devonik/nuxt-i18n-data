@@ -54,7 +54,7 @@ export default defineNuxtModule<I18nDataConfig>({
       filePath: resolver.resolve('./runtime/components/I18nList'),
     })
 
-    //TODO i18n:extend-messages seems deprecated soon but registerModule does not work yet
+    // TODO i18n:extend-messages seems deprecated soon but registerModule does not work yet
     nuxt.hook(
       'i18n:extend-messages',
       async (additionalMessages, localeCodes) => {
@@ -63,7 +63,7 @@ export default defineNuxtModule<I18nDataConfig>({
       },
     )
 
-    /*nuxt.hook('i18n:registerModule', (register: any) => {
+    /* nuxt.hook('i18n:registerModule', (register: any) => {
       register({
         // langDir path needs to be resolved
         langDir: resolver.resolve('./runtime/lang'),
@@ -81,7 +81,7 @@ export default defineNuxtModule<I18nDataConfig>({
           },
         ],
       })
-    })*/
+    }) */
 
     // Assign module options to run time cause we need it in server handler
     nuxt.options.runtimeConfig.i18nData = defu(nuxt.options.runtimeConfig.i18nData, config)
