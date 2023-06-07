@@ -42,7 +42,7 @@
     "test:watch": "vitest watch"
   },
   "dependencies": {
-    "@nuxt/kit": "^3.5.1",
+    "@nuxt/kit": "^3.5.3",
     "@nuxtjs/i18n": "next",
     "changelogen": "^0.5.3",
     "defu": "^6.1.2",
