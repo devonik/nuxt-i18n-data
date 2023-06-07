@@ -54,7 +54,7 @@ export default defineNuxtModule<I18nDataConfig>({
       filePath: resolver.resolve('./runtime/components/I18nList'),
     })
 
-    // TODO i18n:extend-messages seems deprecated soon but registerModule does not work yet
+    // TODO i18n:extend-messages seems deprecated soon but registerModule does not work yet. Wait for fix https://github.com/nuxt-modules/i18n/issues/2141
     nuxt.hook(
       'i18n:extend-messages',
       async (additionalMessages, localeCodes) => {
