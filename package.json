@@ -1,7 +1,7 @@
 {
   "name": "nuxt-i18n-data",
   "type": "module",
-  "version": "0.1.13",
+  "version": "0.1.14",
   "description": "This nuxt 3 module can be used to load locale messages in the vue-i18n instance. The api configured in the config will be called initial after nuxt build and can be called again via plugin that is provided by this module - access via $i18nData",
   "author": {
     "name": "devnik",

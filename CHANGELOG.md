@@ -1,6 +1,23 @@
 # Changelog
 
 
+## v0.1.14
+
+[compare changes](https://github.com/devonik/nuxt-i18n-data/compare/v0.1.13...v0.1.14)
+
+
+### 🩹 Fixes
+
+  - Try to fix undefined defineEventHandler with module lazy prop ([c0415a1](https://github.com/devonik/nuxt-i18n-data/commit/c0415a1))
+
+### 🏡 Chore
+
+  - Update nuxt@kit to latest 3.5.3 ([c1bf6b2](https://github.com/devonik/nuxt-i18n-data/commit/c1bf6b2))
+
+### ❤️  Contributors
+
+- Niklas Grieger <niklas.grieger@devnik.dev>
+
 ## v0.1.13
 
 [compare changes](https://github.com/devonik/nuxt-i18n-data/compare/v0.1.12...v0.1.13)
