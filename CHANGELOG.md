@@ -1,6 +1,19 @@
 # Changelog
 
 
+## v0.1.19
+
+[compare changes](https://github.com/devonik/nuxt-i18n-data/compare/v0.1.18...v0.1.19)
+
+
+### 🩹 Fixes
+
+  - Cannot use i18n:registerModule yet cause not working - still using deprected i18n:extend-messages until fix is done by vue i18n ([9797591](https://github.com/devonik/nuxt-i18n-data/commit/9797591))
+
+### ❤️  Contributors
+
+- Niklas Grieger <niklas.grieger@devnik.dev>
+
 ## v0.1.18
 
 [compare changes](https://github.com/devonik/nuxt-i18n-data/compare/v0.1.17...v0.1.18)
