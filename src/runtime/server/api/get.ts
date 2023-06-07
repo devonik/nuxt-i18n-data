@@ -1,3 +1,4 @@
+import { defineEventHandler } from 'h3'
 import { useHelper } from '../../util/helper'
 import type { I18nDataApiConfig } from '../../types'
 import { getI18nData } from '../../util/google-spreadsheet'

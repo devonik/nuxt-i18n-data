@@ -1,3 +1,4 @@
+import { defineEventHandler } from 'h3'
 import { useHelper } from '../../util/helper'
 
 export default defineEventHandler(async (event: any) => {
