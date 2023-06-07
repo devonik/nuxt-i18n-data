@@ -1,9 +1,10 @@
-import { defineEventHandler } from 'h3'
+
 import { useHelper } from '../../util/helper'
-import type { I18nDataApiConfig } from '../../types'
+import  {H3Event, EventHandlerResponse } from 'h3'
+import type { I18nDataApiConfig, I18nDataRaw } from '../../types'
 import { getI18nData } from '../../util/google-spreadsheet'
 
-export default defineEventHandler(async (event: any) => {
+export default async function(event: H3Event | undefined): Promise<Array<I18nDataRaw> | Array<Record<string, I18nDataRaw>>>{
   const helper = useHelper()
   const config = useRuntimeConfig()
   const moduleConfig: I18nDataApiConfig = config.i18nData.api
@@ -20,7 +21,7 @@ export default defineEventHandler(async (event: any) => {
     }
   }
 
-  const query = await getQuery(event)
+  const query = event ? await getQuery(event) : {}
 
   try {
     let apiResponse: any = []
@@ -50,4 +51,4 @@ export default defineEventHandler(async (event: any) => {
       `Could not read response from fetch call in module nuxt-i18n-data /get: ${error}`,
     )
   }
-})
+}

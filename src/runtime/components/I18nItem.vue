@@ -1,22 +1,22 @@
 <script lang="ts" setup>
 import { defineEmits, reactive } from 'vue'
-import type { i18nDataDto } from '../types'
+import type { I18nDataRaw } from '../types'
 import { useFetch } from '#app'
 
 import { useNuxtApp } from '#imports'
 
 const props = defineProps<{
-  item?: i18nDataDto
+  item?: I18nDataRaw
 }>()
 
 const emit = defineEmits<{
-  (e: 'created', model: i18nDataDto): void
-  (e: 'deleted', model: i18nDataDto): void
+  (e: 'created', model: I18nDataRaw): void
+  (e: 'deleted', model: I18nDataRaw): void
 }>()
 
 const nuxtApp = useNuxtApp()
 
-const model: i18nDataDto = reactive({
+const model: I18nDataRaw = reactive({
   localeCode: props.localeCode || null,
   key: null,
   value: null,
@@ -30,7 +30,7 @@ async function save() {
 
   emit('created', model)
 }
-async function deleteByKey(item: i18nDataDto) {
+async function deleteByKey(item: I18nDataRaw) {
   await useFetch('/api/i18n/delete', { method: 'post', body: { key: item.key } })
   emit('deleted', item)
 }

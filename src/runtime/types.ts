@@ -1,4 +1,4 @@
-export interface i18nDataDto {
+export interface I18nDataRaw {
   key: string | null
   value: string | null
   localeCode: string | null

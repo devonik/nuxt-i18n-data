@@ -61,7 +61,7 @@ export default defineEventHandler(async (event: any) => {
             else if(!spreadsheetValues) throw new Error("Could not read response.valueRanges[1] from fetch call in module nuxt-i18n-data /get")
 
             const headerValues = spreadsheetHeaders.values[0]
-            const messages: Array<i18nDataDto> = []
+            const messages: Array<I18nDataRaw> = []
             headerValues.forEach((header: string, headerIndex: number) => {
                     if(headerIndex === 0) return
 

@@ -56,14 +56,25 @@ export default defineNuxtModule<I18nDataConfig>({
       filePath: resolver.resolve('./runtime/components/I18nList'),
     })
 
-    // Extend vue i18n messages initial
-    nuxt.hook(
-      'i18n:extend-messages',
-      async (additionalMessages, localeCodes) => {
-        const messages = await fetchApi(config.api)
-        additionalMessages.push(messages)
-      },
-    )
+    nuxt.hook('i18n:registerModule', (register: any) => {
+      register({
+        // langDir path needs to be resolved
+        langDir: resolver.resolve('./runtime/lang'),
+        experimental: {
+          jsTsFormatResource: true
+        },
+        locales: [
+          {
+            code: 'de',
+            file: 'general.ts',
+          },
+          {
+            code: 'en',
+            file: 'general.ts',
+          },
+        ]
+      })
+    })
 
     // Assign module options to run time cause we need it in server handler
     nuxt.options.runtimeConfig.i18nData = defu(nuxt.options.runtimeConfig.i18nData, config)
@@ -105,35 +116,6 @@ async function fetchApi(config: I18nDataApiConfig) {
       }
       else { apiResponse = await ofetch(config.url) }
     }
-
-    /* if (googleConfig) {
-      const spreadsheetHeaders = apiResponse.valueRanges[0];
-      const spreadsheetValues = apiResponse.valueRanges[1];
-      if (!spreadsheetHeaders)
-        throw new Error(
-          "Could not read response.valueRanges[0] from fetch call in module nuxt-i18n-data /get"
-        );
-      else if (!spreadsheetValues)
-        throw new Error(
-          "Could not read response.valueRanges[1] from fetch call in module nuxt-i18n-data /get"
-        );
-
-      const headerValues = spreadsheetHeaders.values[0];
-      const messages: Array<i18nDataDto> = [];
-      headerValues.forEach((header: string, headerIndex: number) => {
-        if (headerIndex === 0) return;
-
-        spreadsheetValues.values.forEach((values: Array<string>) => {
-          if (!values[0] || !values[headerIndex]) return;
-          messages.push({
-            key: values[0],
-            value: values[headerIndex],
-            localeCode: header.toLowerCase(),
-          });
-        });
-      });
-      return helper.groupByLocalCode(messages);
-    } */
 
     return helper.groupByLocalCode(apiResponse)
   }
