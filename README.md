@@ -4,7 +4,7 @@ Get your module up and running quickly.
 Find and replace all on all files (CMD+SHIFT+F):
 - Name: Nuxt i18n data module
 - Package name: nuxt-i18n-data
-- Description: This nuxt 3 module can be used to load locale messages in the vue-i18n instance. The api configured in the config will be called initial after nuxt build and can be called again via plugin that is provided by this module - access via $i18nData
+- Description: This nuxt 3 module can be used to load locale messages in the vue-i18n instance. The api configured in the config will be called initial within nuxt build and can be called again via plugin that is provided by this module - access via $i18nData
 -->
 
 # Nuxt i18n data module
@@ -24,6 +24,7 @@ Find and replace all on all files (CMD+SHIFT+F):
 - ⛰ &nbsp;Nuxt 3 module using the newest version of @nuxtjs/i18n
 - ⛰ &nbsp;Nuxt plugin ($i18nData)
 - 🚠 &nbsp;Local json files for vue-i18n are not needed
+- 🚠 &nbsp;Use your own custom api oder the googlesheet integration to load the locale data
 - 🌲 &nbsp;Typescript friendly
 
 ## Quick Setup
