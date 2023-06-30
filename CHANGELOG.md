@@ -1,6 +1,23 @@
 # Changelog
 
 
+## v0.1.20
+
+[compare changes](https://github.com/devonik/nuxt-i18n-data/compare/v0.1.19...v0.1.20)
+
+
+### 🩹 Fixes
+
+  - Use nuxt defineEventHandler for define server handler. Fixes the warning during build time ([642a438](https://github.com/devonik/nuxt-i18n-data/commit/642a438))
+
+### 🏡 Chore
+
+  - **release:** V0.1.19 ([763ec8b](https://github.com/devonik/nuxt-i18n-data/commit/763ec8b))
+
+### ❤️  Contributors
+
+- Niklas Grieger <niklas.grieger@devnik.dev>
+
 ## v0.1.19
 
 [compare changes](https://github.com/devonik/nuxt-i18n-data/compare/v0.1.18...v0.1.19)
