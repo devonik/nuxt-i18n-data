@@ -1,6 +1,19 @@
 # Changelog
 
 
+## v0.1.21
+
+[compare changes](https://github.com/devonik/nuxt-i18n-data/compare/v0.1.20...v0.1.21)
+
+
+### 🩹 Fixes
+
+  - Add @nuxtjs/i18n package as dependencies cause it's neccessary ([78e9b00](https://github.com/devonik/nuxt-i18n-data/commit/78e9b00))
+
+### ❤️  Contributors
+
+- Niklas Grieger <niklas.grieger@devnik.dev>
+
 ## v0.1.20
 
 [compare changes](https://github.com/devonik/nuxt-i18n-data/compare/v0.1.19...v0.1.20)
