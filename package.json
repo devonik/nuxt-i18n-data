@@ -1,7 +1,7 @@
 {
   "name": "nuxt-i18n-data",
   "type": "module",
-  "version": "0.1.21",
+  "version": "0.1.22",
   "description": "This nuxt 3 module can be used to load locale messages in the vue-i18n instance. The api configured in the config will be called initial after nuxt build and can be called again via plugin that is provided by this module - access via $i18nData",
   "author": {
     "name": "devnik",
@@ -41,6 +41,10 @@
     "test": "vitest run",
     "test:watch": "vitest watch"
   },
+  "peerDependencies": {
+    "nuxt": "^3.x",
+    "ofetch": "^1.x"
+  },
   "dependencies": {
     "@nuxt/kit": "^3.6.1",
     "@nuxtjs/i18n": "8.0.0-beta.12",
@@ -57,10 +61,6 @@
     "eslint": "^8.43.0",
     "lint-staged": "^13.2.3",
     "simple-git-hooks": "^2.8.1"
-  },
-  "peerDependencies": {
-    "nuxt": "^3.x",
-    "ofetch": "^1.x"
   },
   "simple-git-hooks": {
     "pre-commit": "pnpm lint-staged"

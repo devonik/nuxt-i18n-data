@@ -1,6 +1,24 @@
 # Changelog
 
 
+## v0.1.22
+
+[compare changes](https://github.com/devonik/nuxt-i18n-data/compare/v0.1.21...v0.1.22)
+
+
+### 🩹 Fixes
+
+  - Add @nuxtjs/i18n package as dependencies cause it's neccessary ([78e9b00](https://github.com/devonik/nuxt-i18n-data/commit/78e9b00))
+  - Excplicit import defineEventHandler cause it was undefined ([2594a67](https://github.com/devonik/nuxt-i18n-data/commit/2594a67))
+
+### 🏡 Chore
+
+  - **release:** V0.1.21 ([4c3a373](https://github.com/devonik/nuxt-i18n-data/commit/4c3a373))
+
+### ❤️  Contributors
+
+- Niklas Grieger <niklas.grieger@devnik.dev>
+
 ## v0.1.21
 
 [compare changes](https://github.com/devonik/nuxt-i18n-data/compare/v0.1.20...v0.1.21)
