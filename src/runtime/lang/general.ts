@@ -1,6 +1,9 @@
 import type { Locale } from '@nuxtjs/i18n/dist/runtime/composables'
-import get from '../server/api/get'
 
 export default defineI18nLocale(async (locale: Locale) => {
-  const messages = await get(undefined)
+  console.log('defineI18nLocal for language', locale)
+  // const messages = await get(undefined)
+  return {
+    goodDay: 'Guten Tag',
+  }
 })

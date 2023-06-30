@@ -5,7 +5,7 @@ import type { I18nDataApiConfig, I18nDataRaw } from '../../types'
 import { getI18nData } from '../../util/google-spreadsheet'
 import { useRuntimeConfig } from '#imports'
 
-export default async function (event: H3Event | undefined): Promise<Array<I18nDataRaw> | Array<Record<string, I18nDataRaw>>> {
+export default defineEventHandler(async (event: H3Event | undefined): Promise<Array<I18nDataRaw> | Array<Record<string, I18nDataRaw>>> => {
   const helper = useHelper()
   const config = useRuntimeConfig()
   const moduleConfig: I18nDataApiConfig = config.i18nData.api
@@ -52,4 +52,4 @@ export default async function (event: H3Event | undefined): Promise<Array<I18nDa
       `Could not read response from fetch call in module nuxt-i18n-data /get: ${error}`,
     )
   }
-}
+})

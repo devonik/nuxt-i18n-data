@@ -67,16 +67,15 @@ export default defineNuxtModule<I18nDataConfig>({
       register({
         // langDir path needs to be resolved
         langDir: resolver.resolve('./runtime/lang'),
-        experimental: {
-          jsTsFormatResource: true,
-        },
         locales: [
           {
             code: 'de',
+            iso: 'de-DE',
             file: 'general.ts',
           },
           {
             code: 'en',
+            iso: 'en-US',
             file: 'general.ts',
           },
         ],
