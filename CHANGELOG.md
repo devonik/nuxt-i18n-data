@@ -1,6 +1,23 @@
 # Changelog
 
 
+## v1.0.1
+
+[compare changes](https://github.com/devonik/nuxt-i18n-data/compare/v0.1.22...v1.0.1)
+
+
+### 🩹 Fixes
+
+  - Remove old comments and add all server routes get, post, delete ([605998c](https://github.com/devonik/nuxt-i18n-data/commit/605998c))
+
+### 🏡 Chore
+
+  - Release 1.0.0 ([45e2349](https://github.com/devonik/nuxt-i18n-data/commit/45e2349))
+
+### ❤️  Contributors
+
+- Niklas Grieger <niklas.grieger@devnik.dev>
+
 ## v0.1.22
 
 [compare changes](https://github.com/devonik/nuxt-i18n-data/compare/v0.1.21...v0.1.22)
