@@ -1,5 +1,5 @@
-import type { H3Event } from 'h3'
 import { defineEventHandler, getQuery } from 'h3'
+import type { H3Event } from 'h3'
 import { useHelper } from '../../util/helper'
 import type { I18nDataApiConfig, I18nDataRaw } from '../../types'
 import { getI18nData } from '../../util/google-spreadsheet'
@@ -11,7 +11,7 @@ export default defineEventHandler(async (event: H3Event | undefined): Promise<Ar
   const moduleConfig: I18nDataApiConfig = config.i18nData.api
   if (!moduleConfig.url && !moduleConfig.google) {
     throw new Error(
-      'You must add runtime config i18nData.api.url or i18nData.api.google',
+      'nuxt-i18n-data: You must add runtime config i18nData.api.url or i18nData.api.google',
     )
   }
 
@@ -22,7 +22,7 @@ export default defineEventHandler(async (event: H3Event | undefined): Promise<Ar
     }
   }
 
-  const query = event ? await getQuery(event) : {}
+  const query = event ? getQuery(event) : {}
 
   try {
     let apiResponse: any = []
@@ -32,7 +32,7 @@ export default defineEventHandler(async (event: H3Event | undefined): Promise<Ar
     else {
       if (!moduleConfig.url) {
         throw new Error(
-          'Could not read build url by nuxt-i18n-data module config. Google config or any other get url must be filled',
+          'nuxt-i18n-data: You wanted to get translation messages but runtimeConfig i18nData.api.url seems undefined',
         )
       }
       if (headers) {
@@ -49,7 +49,7 @@ export default defineEventHandler(async (event: H3Event | undefined): Promise<Ar
   }
   catch (error: any) {
     throw new Error(
-      `Could not read response from fetch call in module nuxt-i18n-data /get: ${error}`,
+      `nuxt-i18n-data: Could not read response from sever api /get: ${error}`,
     )
   }
 })

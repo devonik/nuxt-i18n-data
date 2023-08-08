@@ -95,8 +95,15 @@ This module provides simple Vue commponents to GET all loaded messages, POST the
 > You have to set runtime config (same format as module config) to use this
 
 ### GET - /api/i18n/
-1. Google sheet config (runtimeConfig: i18nData.google). Example spreadsheet https://docs.google.com/spreadsheets/d/1Th8vT5gAVqmkXyoGtxOhgtPYL-6QwDfH8viZyuKphwI/edit#gid=0
-2. Custom API (runtimeConfig: i18nData.api.url)
+
+#### Google Spreadsheet API
+
+To get messages from a google spreadsheet you have to set the runtime config i18nData.google. See src/runtime/types.ts I18nDataGoogleConfig for all attributes
+Example spreadsheet https://docs.google.com/spreadsheets/d/1Th8vT5gAVqmkXyoGtxOhgtPYL-6QwDfH8viZyuKphwI/edit#gid=0
+
+#### Custom API
+
+To get messages from a custom api you have to set the runtime config i18nData.api.url. Additional you can set header via runtime config i18nData.api.apiKey and/or i18nData.api.headers. See src/runtime/types.ts I18nDataApiConfig for all attributes
 Return from custom api must be
 ```json
 [
@@ -109,8 +116,15 @@ Return from custom api must be
 ```
 
 ### POST - /api/i18n/
-> POST / update a message is currently only possible with custom API. For google post support the project have to use the google sdk cause of oauth needed
-1. Custom API (runtimeConfig: i18nData.api.url)
+
+#### Google Spreadsheet API
+
+Not implemented
+
+#### Custom API
+
+To post a single message to a custom api you have to set the runtime config i18nData.api.url. Additional you can set header via runtime config i18nData.api.apiKey and/or i18nData.api.headers. See src/runtime/types.ts I18nDataApiConfig for all attributes
+
 The DTO post from client have to be
 ```json
 [
@@ -122,11 +136,30 @@ The DTO post from client have to be
 ]
 ```
 
-### DELETE - /api/i18n/
-> DELETE a message is currently only possible with custom API. For google post support the project have to use the google sdk cause of oauth needed
-!!!Not maintained yet!!!
+### DELETE - /api/i18n/delete
+
+#### Google Spreadsheet API
+
+Not implemented
+
+#### Custom API
+
+To delete a single message from a custom api you have to set the runtime config i18nData.api.url. Additional you can set header via runtime config i18nData
+
+The DTO post from client have to be empty or
+```json
+[
+  {
+    "key": "layout.menuSecondary.test1",
+    "value": "testChildUpdate",
+    "localeCode": "de"
+  }
+]
+```
+if empty it's like delete all messages
 
 ## Google sheet config
+
 You can either using a self managed api with get endpoint to get all local messages or you can use google sheet to easily manage locale message and get this messages as json via [Google Sheet API](https://developers.google.com/sheets/api/reference/rest) 
 
 When you want to use the get from google sheet api you have to take some actions to enable this

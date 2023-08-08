@@ -32,19 +32,22 @@ export default defineNuxtModule<I18nDataConfig>({
     // Do not add the extension since the `.ts` will be transpiled to `.mjs` after `npm run prepack`
     addPlugin(resolver.resolve('./runtime/plugin'))
 
-    // TODO temporary disabled because it cannot be resolved. bug is known here https://github.com/nuxt/nuxt/issues/18909
     addServerHandler({
       route: '/api/i18n',
+      method: 'get',
       handler: resolver.resolve('./runtime/server/api/get'),
     })
-    /* addServerHandler({
+    addServerHandler({
       route: '/api/i18n',
+      method: 'post',
       handler: resolver.resolve('./runtime/server/api/post'),
-    }) */
-    /* addServerHandler({
+    })
+    addServerHandler({
       route: '/api/i18n/delete',
-      handler: resolver.resolve('./runtime/server/api/delete')
-    }) */
+      method: 'post',
+      handler: resolver.resolve('./runtime/server/api/delete'),
+    })
+
     addComponent({
       name: 'I18nItem',
       filePath: resolver.resolve('./runtime/components/I18nItem'),
@@ -88,8 +91,6 @@ export default defineNuxtModule<I18nDataConfig>({
 })
 
 async function fetchApi(config: I18nDataApiConfig) {
-  /* const googleConfig = helper.getGoogleRuntimeConfig(config);
-  if (!config) throw new Error('You must add runtime config "i18nData.api"'); */
   if (!config.url && !config.google) {
     throw new Error(
       'You must add runtime config i18nData.api.url or i18nData.api.google',

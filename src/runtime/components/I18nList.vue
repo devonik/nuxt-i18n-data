@@ -1,23 +1,29 @@
 <script lang="ts" setup>
+import { reactive } from 'vue'
 import { useHelper } from '../util/helper'
+import type { I18nDataRaw } from '../types'
 import { useFetch } from '#app'
 
 const helper = useHelper()
 const { data: rawData }: any = await useFetch('/api/i18n?raw=true')
-const i18nData = helper.groupBy(rawData.value, 'localeCode')
+const i18nData = reactive<Record<string, any>>(helper.groupBy(rawData.value, 'localeCode'))
 
 function deleteAll() {
   useFetch('/api/i18n/delete', { method: 'post' })
 }
 
-function removeItemFromList(item) {
-  i18nData.value[item.localeCode].splice(0, 1)
+function removeItemFromList(item: I18nDataRaw) {
+  if (!item.localeCode)
+    return
+  i18nData[item.localeCode].splice(0, 1)
 }
 
-function addItemToList(newItem) {
-  if (!i18nData.value[newItem.localeCode])
-    i18nData.value[newItem.localeCode] = []
-  i18nData.value[newItem.localeCode].push(newItem)
+function addItemToList(newItem: I18nDataRaw) {
+  if (!newItem.localeCode)
+    return
+  if (!i18nData[newItem.localeCode])
+    i18nData[newItem.localeCode] = []
+  i18nData[newItem.localeCode].push(newItem)
 }
 </script>
 

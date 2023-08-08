@@ -17,9 +17,9 @@ const emit = defineEmits<{
 const nuxtApp = useNuxtApp()
 
 const model: I18nDataRaw = reactive({
-  localeCode: props.localeCode || null,
-  key: null,
-  value: null,
+  localeCode: undefined,
+  key: undefined,
+  value: undefined,
 
   ...props.item,
 })
@@ -31,7 +31,7 @@ async function save() {
   emit('created', model)
 }
 async function deleteByKey(item: I18nDataRaw) {
-  await useFetch('/api/i18n/delete', { method: 'post', body: { key: item.key } })
+  await useFetch('/api/i18n/delete', { method: 'post', body: item })
   emit('deleted', item)
 }
 </script>

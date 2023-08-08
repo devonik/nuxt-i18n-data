@@ -1,5 +1,3 @@
-import { Buffer } from 'node:buffer'
-
 export default defineNuxtConfig({
   modules: [
     '../src/module',
@@ -14,7 +12,7 @@ export default defineNuxtConfig({
   i18nData: {
     api: {
       url: 'https://api.devnik.dev/storage',
-      google: {
+      /* google: {
         providerKey: process.env.I18N_DATA_GOOGLE_SHEET_PROVIDER_KEY,
         spreadsheetId: process.env.I18N_DATA_GOOGLE_SHEET_SPREADSHEET_ID,
         credentials: {
@@ -26,10 +24,7 @@ export default defineNuxtConfig({
             ).toString('ascii')
             : undefined,
         },
-      },
+      }, */
     },
-  },
-  experimental: {
-    jsTsFormatResource: true,
   },
 })

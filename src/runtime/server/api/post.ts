@@ -1,90 +1,58 @@
-import { defineEventHandler } from 'h3'
-import { useHelper } from '../../util/helper'
+import type { H3Event } from 'h3'
+import { defineEventHandler, readBody } from 'h3'
+import type { I18nDataApiConfig } from '../../types'
+import { useRuntimeConfig } from '#imports'
 
-export default defineEventHandler(async (event: any) => {
-  const helper = useHelper()
+export default defineEventHandler(async (event: H3Event): Promise<any> => {
   const config = useRuntimeConfig()
-
-  if (!config.i18nData)
-    throw new Error('You must add runtime config "i18nData"')
-  else if (!config.i18nData.api)
-    throw new Error('You must add runtime config "i18nData.api"')
-
-  const googleConfig = helper.getGoogleRuntimeConfig(config.i18nData.api)
-  if (!config.i18nData.api.url && !googleConfig) {
+  const moduleConfig: I18nDataApiConfig = config.i18nData.api
+  if (!moduleConfig.url && !moduleConfig.google) {
     throw new Error(
-      'You must add runtime config i18nData.api.url or i18nData.api.google',
+      'nuxt-i18n-data: You must add runtime config i18nData.api.url or i18nData.api.google',
     )
   }
 
-  let headers = config.i18nData.headers || null
-  if (!headers && config.i18nData.apiKey) {
+  let headers = moduleConfig.headers || null
+  if (!headers && moduleConfig.apiKey) {
     headers = {
-      Authorization: config.i18nData.apiKey,
+      Authorization: moduleConfig.apiKey,
     }
   }
 
   const body = await readBody(event)
-  let dto = Object.assign({}, body)
-  if (googleConfig) {
-    dto = {
-      majorDimension: 'ROWS',
-      range: 'Sheet1!A1:E1',
-      values: [[body.key, body.value]],
-    }
-    if (Array.isArray(body)) {
-      dto.values = body.map((item) => {
-        return [item.key, item.value]
-      })
-    }
-  }
+
   try {
-    const url = googleConfig ? googleConfig.postUrl : config.i18nData.url
-    let apiResponse: any = null
-    if (headers) {
-      apiResponse = await $fetch(url, {
-        headers,
-        method: 'post',
-        body: dto,
-      })
+    let apiResponse
+    if (moduleConfig.google) {
+      console.warn('nuxt-i18n-data: You wanted to post translation messages but there is no implementation yet for post to google provider. Consider remove runtimeConfig i18nData.api.google or wait for implementation')
+      return 'Not implemented'
     }
     else {
-      apiResponse = await $fetch(url, {
-        method: 'post',
-        body: dto,
-      })
-    }
-    if (googleConfig) {
-      /* const spreadsheetHeaders = apiResponse.valueRanges[0]
-            const spreadsheetValues = apiResponse.valueRanges[1]
-            if(!spreadsheetHeaders) throw new Error("Could not read response.valueRanges[0] from fetch call in module nuxt-i18n-data /get")
-            else if(!spreadsheetValues) throw new Error("Could not read response.valueRanges[1] from fetch call in module nuxt-i18n-data /get")
-
-            const headerValues = spreadsheetHeaders.values[0]
-            const messages: Array<I18nDataRaw> = []
-            headerValues.forEach((header: string, headerIndex: number) => {
-                    if(headerIndex === 0) return
-
-                    spreadsheetValues.values.forEach(values => {
-                        if(!values[0] || !values[headerIndex]) return
-                        messages.push({
-                            key: values[0],
-                            value: values[headerIndex],
-                            localeCode: header.toLowerCase()
-                        })
-                    })
-                })
-
-                console.log("messages", messages)
-            return query.raw ? messages : helper.groupByLocalCode(messages) */
+      if (!moduleConfig.url) {
+        throw new Error(
+          'nuxt-i18n-data: You wanted to post translation messages but runtimeConfig i18nData.api.url seems undefined',
+        )
+      }
+      if (headers) {
+        apiResponse = await $fetch(moduleConfig.url, {
+          headers,
+          method: 'post',
+          body,
+        })
+      }
+      else {
+        apiResponse = await $fetch(moduleConfig.url, {
+          method: 'post',
+          body,
+        })
+      }
     }
 
-    // return query.raw ? apiResponse : helper.groupByLocalCode(apiResponse)
-    return null
+    return apiResponse
   }
   catch (error: any) {
     throw new Error(
-      `Could not read response from fetch call in module nuxt-i18n-data /post: ${error}`,
+      `nuxt-i18n-data: Could not read response from sever api /post: ${error}`,
     )
   }
 })
