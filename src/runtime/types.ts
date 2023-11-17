@@ -22,4 +22,6 @@ export interface I18nDataApiConfig {
 }
 export interface I18nDataConfig {
   api: I18nDataApiConfig
+  // Default: true. When auto is true the library will load message into vue-i18n context in build time. If you want manually set the i18n config and want to use the server apis from the library you can set this to false
+  auto: boolean
 }

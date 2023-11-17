@@ -25,6 +25,7 @@ export default defineNuxtModule<I18nDataConfig>({
   // Default configuration options of the Nuxt module
   defaults: {
     api: {},
+    auto: true,
   },
   setup(config, nuxt) {
     const resolver = createResolver(import.meta.url)
@@ -58,13 +59,16 @@ export default defineNuxtModule<I18nDataConfig>({
     })
 
     // TODO i18n:extend-messages seems deprecated soon but registerModule does not work yet. Wait for fix https://github.com/nuxt-modules/i18n/issues/2141
-    nuxt.hook(
-      'i18n:extend-messages',
-      async (additionalMessages, localeCodes) => {
-        const messages = await fetchApi(config.api)
-        additionalMessages.push(messages)
-      },
-    )
+
+    if (config.auto) {
+      nuxt.hook(
+        'i18n:extend-messages',
+        async (additionalMessages, localeCodes) => {
+          const messages = await fetchApi(config.api)
+          additionalMessages.push(messages)
+        },
+      )
+    }
 
     /* nuxt.hook('i18n:registerModule', (register: any) => {
       register({
