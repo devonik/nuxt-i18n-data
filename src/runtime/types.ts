@@ -1,7 +1,7 @@
 export interface I18nDataRaw {
   key: string | undefined
   value: string | undefined
-  localeCode: string | undefined
+  localeCode: string
 }
 // Module options TypeScript inteface definition
 export interface I18nDataGoogleConfigCredentials {

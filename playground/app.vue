@@ -1,7 +1,13 @@
 <script setup>
-import { useI18n } from '#imports'
+import { ref, useFetch, useI18n } from '#imports'
 
 const i18n = useI18n()
+const localData = ref()
+async function getAllMessagesByCode() {
+  const { data: messages } = await useFetch('/api/i18n?localeCode=de')
+  localData.value = messages.value
+}
+getAllMessagesByCode()
 </script>
 
 <template>
@@ -12,5 +18,6 @@ const i18n = useI18n()
     <button @click="$i18nData.refreshAllMessages()">
       Refresh all messages
     </button>
+    localData: <pre>{{ localData }}</pre>
   </div>
 </template>

@@ -5,7 +5,7 @@ import type { I18nDataApiConfig, I18nDataRaw } from '../../types'
 import { getI18nData } from '../../util/google-spreadsheet'
 import { useRuntimeConfig } from '#imports'
 
-export default defineEventHandler(async (event: H3Event | undefined): Promise<Array<I18nDataRaw> | Array<Record<string, I18nDataRaw>>> => {
+export default defineEventHandler(async (event: H3Event | undefined): Promise<I18nDataRaw[] | Record<string, any> | Record<string, Record<string, any>>> => {
   const helper = useHelper()
   const config = useRuntimeConfig()
   const moduleConfig: I18nDataApiConfig = config.i18nData.api
@@ -45,7 +45,16 @@ export default defineEventHandler(async (event: H3Event | undefined): Promise<Ar
       }
     }
 
-    return query.raw ? apiResponse : helper.groupByLocalCode(apiResponse)
+    if (query.raw)
+      return apiResponse
+
+    const grouped = helper.groupByLocalCode(apiResponse)
+    if (query.localeCode) {
+      if (!grouped[query.localeCode as string])
+        console.warn(`Could not fetch i18n data for localeCode: ${query.localeCode}`)
+      return grouped[query.localeCode as string]
+    }
+    return grouped
   }
   catch (error: any) {
     throw new Error(

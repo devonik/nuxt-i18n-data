@@ -1,3 +1,5 @@
+import type { I18nDataRaw } from '../types'
+
 export function useHelper() {
   return {
     groupBy(xs, key) {
@@ -21,9 +23,9 @@ export function useHelper() {
         return res
       }, {})
     },
-    groupByLocalCode(list) {
-      const localeCodes = new Set()
-      const obj = {}
+    groupByLocalCode(list: I18nDataRaw[]): Record<string, Record<string, any>> {
+      const localeCodes = new Set<string>()
+      const obj: any = {}
       list.forEach((item) => {
         localeCodes.add(item.localeCode)
       })
