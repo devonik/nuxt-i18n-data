@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v1.2.0
+
+[compare changes](https://github.com/devonik/nuxt-i18n-data/compare/v1.1.0...v1.2.0)
+
+### 🚀 Enhancements
+
+- Add module config auto with default true to control if the i18n data will be loaded on build time ([a997826](https://github.com/devonik/nuxt-i18n-data/commit/a997826))
+
+### ❤️ Contributors
+
+- Niklas Grieger <niklas.grieger@devnik.dev>
+
 ## v1.1.0
 
 [compare changes](https://github.com/devonik/nuxt-i18n-data/compare/v1.0.1...v1.1.0)
