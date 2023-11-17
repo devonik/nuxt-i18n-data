@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v1.1.0
+
+[compare changes](https://github.com/devonik/nuxt-i18n-data/compare/v1.0.1...v1.1.0)
+
+### 🚀 Enhancements
+
+- Extend server get to fetch messages by local code via /api/i18n?localeCode=de ([6c64a10](https://github.com/devonik/nuxt-i18n-data/commit/6c64a10))
+
+### ❤️ Contributors
+
+- Niklas Grieger <niklas.grieger@devnik.dev>
+
 ## v1.0.1
 
 [compare changes](https://github.com/devonik/nuxt-i18n-data/compare/v0.1.22...v1.0.1)
